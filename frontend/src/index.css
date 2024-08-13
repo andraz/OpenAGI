@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root {
+  height: 100vh;
+  width: 100vw;
+}
+
+body {
+  background: black;
+}
+
+div.react-flow__panel.react-flow__attribution {
+  opacity: 0.2;
+  background: '#111';
+}
