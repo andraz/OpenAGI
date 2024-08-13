@@ -2,9 +2,9 @@ import { Handle } from '@xyflow/react'
 import Label from './Label'
 
 const HexagonNode = ({ data }) => {
-  // Hexagon height to width ratio
-  const height = 108
-  const width = (Math.sqrt(3) / 2) * height
+  // Hexagon width to height ratio
+  const width = 104
+  const height = (2 / Math.sqrt(3)) * width
 
   return (
     <div
