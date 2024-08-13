@@ -4,26 +4,13 @@ import {
   useEdgesState,
   applyNodeChanges,
 } from '@xyflow/react'
-import {
-  ReactFlow,
-  useNodesState,
-  useEdgesState,
-  applyNodeChanges,
-} from '@xyflow/react'
+
 import '@xyflow/react/dist/style.css'
 
 import HexBackground from './HexBackground'
 
 import nodeTypes from './Nodes/nodeTypes'
-
-const initialNodes = [
-  {
-    id: '1',
-    type: 'hexagon',
-    data: { label: 'Hexagon Node' },
-    position: { x: 100, y: 100 },
-  },
-]
+import { initialNodes } from './initialNodes'
 
 const initialEdges = []
 
@@ -55,34 +42,7 @@ const hexSnap = position => {
 
 const App = () => {
   const [nodes, setNodes] = useNodesState(initialNodes)
-  const [nodes, setNodes] = useNodesState(initialNodes)
   const [edges, , onEdgesChange] = useEdgesState(initialEdges)
-
-  const onNodesChangeWithSnapping = changes => {
-    changes = changes.map(change => {
-      if (change.type === 'position') {
-        // Check if previousPosition exists:
-        if (change.previousPosition) {
-          if (
-            Math.abs(change.position.x - change.previousPosition.x) >=
-            Math.abs(change.position.y - change.previousPosition.y)
-          ) {
-            const hexCoords = cartesianToHex(change.position, gridSize)
-            hexCoords.q = Math.round(hexCoords.q)
-            change.position = hexToCartesian(hexCoords, gridSize)
-          } else {
-            change.position = hexSnap(change.position)
-          }
-          console.log(change.position)
-        } else {
-          // For new nodes or initial programmatic positioning, use regular hexSnap:
-          change.position = hexSnap(change.position)
-        }
-      }
-      return change
-    })
-    setNodes(nds => applyNodeChanges(changes, nds))
-  }
 
   const onNodesChangeWithSnapping = changes => {
     changes = changes.map(change => {
@@ -114,7 +74,6 @@ const App = () => {
     <ReactFlow
       nodes={nodes}
       edges={edges}
-      onNodesChange={onNodesChangeWithSnapping}
       onNodesChange={onNodesChangeWithSnapping}
       onEdgesChange={onEdgesChange}
       nodeTypes={nodeTypes}>

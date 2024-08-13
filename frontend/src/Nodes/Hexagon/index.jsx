@@ -7,16 +7,21 @@ const HexagonNode = ({ data }) => {
   const height = (2 / Math.sqrt(3)) * width
 
   return (
-    <div
-      className="hexagon grid place-items-center bg-blue-500"
-      style={{
-        width: `${width}px`,
-        height: `${height}px`,
-      }}>
-      <Handle type="target" position="left" />
-      <Handle type="source" position="right" />
-      <Label data={data} />
-    </div>
+    <>
+      <div
+        className="hexagon bg-transparent bg-contain bg-top bg-no-repeat"
+        style={{
+          width: `${width}px`,
+          height: `${height}px`,
+          backgroundImage: `url(${data.src})`,
+        }}>
+        {/* <Handle type="target" position="left" /> */}
+        {/* <Handle type="source" position="right" /> */}
+      </div>
+      <div className="inset-0 grid place-items-center">
+        <Label data={data} />
+      </div>
+    </>
   )
 }
 

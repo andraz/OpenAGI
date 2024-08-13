@@ -1,4 +1,7 @@
 # OpenAGI
+
 DIY AI landscape growing safely in the privacy of your own computer
 
-![background](frontend/image.png)
+## Assemble your crew
+
+![assembling your crew](frontend/prepare_actors.gif)
