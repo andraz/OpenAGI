@@ -1,0 +1,49 @@
+{
+  "name": "OpenAGI",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers-contrib/features/prettier:1": {},
+    "ghcr.io/prulloac/devcontainer-features/bun:1": {},
+    "ghcr.io/devcontainers-contrib/features/yt-dlp:2": {},
+    "ghcr.io/itsmechlark/features/redis-server:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // TypeScript language support
+        "ms-vscode.vscode-typescript-next",
+        // Prettier code formatter
+        "esbenp.prettier-vscode",
+        // Code spell checker
+        "streetsidesoftware.code-spell-checker",
+        // ESLint integration
+        "dbaeumer.vscode-eslint",
+        // Tailwind CSS IntelliSense
+        "bradlc.vscode-tailwindcss",
+        // Continue extension
+        "Continue.continue"
+      ],
+      "settings": {
+        // Allow tailwind extension to detect classes in all strings
+        "tailwindCSS.experimental.classRegex": ["([a-zA-Z0-9\\-:]+)"],
+
+        // Use prettier for formatting
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "always"
+        },
+        // Enable prettier for markdown and jsonc
+        "[markdown]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[jsonc]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+      }
+    }
+  },
+  // Run scripts after the container is created
+  "postCreateCommand": "bun install -g pm2"
+}
