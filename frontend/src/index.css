@@ -12,6 +12,14 @@ body {
 }
 
 div.react-flow__panel.react-flow__attribution {
-  opacity: 0.2;
-  background: '#111';
+  opacity: 0.1;
+  border-top-left-radius: 0.3rem;
+}
+
+div.react-flow__panel.react-flow__attribution a {
+  color: black;
+}
+
+.hexagon {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }

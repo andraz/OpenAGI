@@ -1,6 +1,6 @@
 import { memo, useRef, useEffect } from 'react'
 import { useStore } from '@xyflow/react'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import drawHalfHex from './drawHalfHex.jsx'
 
 const HexBackground = ({ size = 60, color = 'hwb(222 5% 5%)' }) => {
