@@ -29,7 +29,7 @@ const hexSnap = position => {
 
   // Adjust the horizontal calculation to align with hexagon centers:
   const col = Math.round(
-    (position.x - hexWidth / 2 - (position.y % (2 * hexVerticalSpacing)) / 2) /
+    (position.x - hexWidth - (position.y % (2 * hexVerticalSpacing)) / 2) /
       hexWidth
   )
 
@@ -42,7 +42,7 @@ const hexSnap = position => {
   const xOffset = hexWidth / 2
   const yOffset = hexVerticalSpacing * 0.3333 // Height of the hexagon
 
-  return { x: x - xOffset, y: y + yOffset }
+  return { x: x + xOffset, y: y + yOffset }
 }
 
 const App = () => {
