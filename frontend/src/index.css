@@ -26,6 +26,6 @@ div.react-flow__panel.react-flow__attribution a {
 
 div.react-flow__node {
   transition-property: all;
-  transition-duration: 500ms;
-  transition-timing-function: ease-in-out;
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
 }
