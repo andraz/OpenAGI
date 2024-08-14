@@ -1,5 +1,5 @@
 import getQueue from './getQueue.js'
-import { jobConfig } from '../config/const.js'
+import jobConfig from '../config/job.js'
 
 /**
  * Adds a job to the specified queue.

@@ -1,4 +1,5 @@
-const http = require('http')
+import https from 'https'
+import http from 'http'
 
 /**
  * Main function to check the reachability of a domain using a GET request.
@@ -41,8 +42,11 @@ const main = async job => {
 const checkDomainReachabilityWithGetRequest = url => {
   // Return a new Promise that resolves to true if the GET request is successful, and false otherwise
   return new Promise(resolve => {
+    // Determine the protocol of the URL
+    const protocol = url.startsWith('https') ? https : http
+
     // Make a GET request to the specified url
-    const req = http.get(url, res => {
+    const req = protocol.get(url, res => {
       // If the request is successful, resolve the Promise to true and destroy the request
       resolve(true)
       req.destroy()

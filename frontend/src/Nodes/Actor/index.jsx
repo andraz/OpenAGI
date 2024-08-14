@@ -1,6 +1,7 @@
 import HexagonNode from '../Hexagon'
 import useSocketEvent from '../../hooks/useSocketEvent'
 import { useState } from 'react'
+import useSocketEmit from '../../hooks/useSocketEmit'
 
 /**
  * Actor component represent a persona with a picture, name and a backstory.
@@ -22,9 +23,15 @@ const Actor = props => {
     setTime(message)
   })
 
+  const socketEmit = useSocketEmit('actorClick', props)
+
   // Render the HexagonNode component with the prepared data
   return (
     <HexagonNode
+      onClick={e => {
+        console.log('clicked', props)
+        socketEmit()
+      }}
       data={{
         src: image,
         label: firstName,

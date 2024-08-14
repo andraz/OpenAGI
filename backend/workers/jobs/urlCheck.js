@@ -1,6 +1,6 @@
 import addToQueue from '../queue/addToQueue.js'
 
-const convertSubtitles = async url => {
+const main = async ({ url }) => {
   if (!url || typeof url !== 'string') {
     throw new Error('url is required')
   }
@@ -10,9 +10,11 @@ const convertSubtitles = async url => {
     throw new Error('url is invalid')
   }
 
-  const jobData = { url }
+  const queueName = 'urlCheck'
 
-  return addToQueue('urlCheck', jobData)
+  const payload = { url }
+
+  return addToQueue({ queueName, payload })
 }
 
-export default convertSubtitles
+export default main

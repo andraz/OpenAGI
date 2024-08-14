@@ -6,11 +6,11 @@ import addToQueue from '../queue/addToQueue.js'
  * @param {Object} options - The options for the transformation.
  * @param {string} options.inputText - The text to be transformed into a JSON object.
  * @param {string} options.jsonArrayKeys - A description of the JSON object's keys.
- * @param {string} options.method - The method to use for the transformation.
+ * @param {string} [options.method='groq'] - The method to use for the transformation.
  * @throws {Error} If inputText, jsonArrayKeys, or an unsupported method is not provided.
  * @returns {Promise<Object>} A promise that resolves to the JSON object.
  */
-const llmToJson = async ({ inputText, jsonArrayKeys, method }) => {
+const llmToJson = async ({ inputText, jsonArrayKeys, method = 'groq' }) => {
   if (!inputText) {
     throw new Error('inputText to be transformed is required')
   }

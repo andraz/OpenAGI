@@ -1,7 +1,7 @@
 import { Handle } from '@xyflow/react'
 import Label from './Label'
 
-const HexagonNode = ({ data }) => {
+const HexagonNode = ({ onClick, data }) => {
   // Hexagon width to height ratio
   const width = 104
   const height = (2 / Math.sqrt(3)) * width
@@ -9,6 +9,7 @@ const HexagonNode = ({ data }) => {
   return (
     <>
       <div
+        onClick={onClick}
         className="hexagon bg-transparent bg-contain bg-top bg-no-repeat"
         style={{
           width: `${width}px`,

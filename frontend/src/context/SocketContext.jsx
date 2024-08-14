@@ -30,6 +30,9 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     socket.connect()
 
+    // Expose websocket instance to the window object for debugging purposes.
+    window.ws = socket
+
     socket.on('connect', () => {
       setIsConnected(true)
       setError(null)
