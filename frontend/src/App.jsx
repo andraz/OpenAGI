@@ -16,19 +16,23 @@ import { gridSize } from './settings'
 
 const initialEdges = []
 
+import { SocketProvider } from './context/SocketContext'
+
 const App = () => {
   const [nodes, setNodes] = useNodesState(initialNodes)
   const [edges, , onEdgesChange] = useEdgesState(initialEdges)
   const onNodesChange = useNodesChange(setNodes)
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      nodeTypes={nodeTypes}>
-      <HexBackground size={gridSize} />
-    </ReactFlow>
+    <SocketProvider>
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        nodeTypes={nodeTypes}>
+        <HexBackground size={gridSize} />
+      </ReactFlow>
+    </SocketProvider>
   )
 }
 

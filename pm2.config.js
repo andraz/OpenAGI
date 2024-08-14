@@ -1,21 +1,21 @@
 module.exports = {
-  interpreter: '/usr/local/bin/bun', // Path to the Bun interpreter
+  interpreter: "/usr/local/bin/bun",
   apps: [
     {
-      name: 'OpenAGI-server', // Main server running on port 4444
-      script: './backend/index.js',
+      name: "react-frontend", // React vite app running in dev mode
+      script: "cd frontend && bun run dev",
     },
 
-    // {
-    //   name: 'bullmq', // Dashboard for BullMQ running on port 3000
-    //   script: './bullmqDashboard.cjs',
-    // },
+    {
+      name: "main-server", // Main server hosting /bull dashboard and / UI dev build
+      script: "./backend/index.cjs",
+    },
 
-    // {
-    //   name: 'worker', // Worker for BullMQ
-    //   script: './workers/index.js', // Path to worker entry point
-    //   instances: '4', // Number of worker instances to run in parallel
-    //   exec_mode: 'cluster', // Run in cluster mode for parallel processing
-    // },
+    {
+      name: "worker", // Handles workers processing jobs from the queue
+      script: "./backend/workers/index.js", // Path to worker entry point
+      instances: "4", // Number of worker instances to run in parallel
+      exec_mode: "cluster", // Run in cluster mode for parallel processing
+    },
   ],
-}
+};

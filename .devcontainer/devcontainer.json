@@ -34,7 +34,7 @@
         "editor.codeActionsOnSave": {
           "source.fixAll.eslint": "always"
         },
-        
+
         // Enable prettier for markdown and jsonc
         "[markdown]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -45,6 +45,7 @@
       }
     }
   },
-  // Run scripts after the container is created
-  "postCreateCommand": "bun install -g pm2"
+
+  // install pm2 after the container is created
+  "postCreateCommand": "bun add -g pm2"
 }

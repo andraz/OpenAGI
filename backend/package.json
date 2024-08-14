@@ -1,11 +1,26 @@
 {
   "name": "openagi-server",
   "module": "index.js",
+  "version": "2.2.1",
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@bull-board/api": "^5.21.4",
+    "@bull-board/express": "^5.21.4",
+    "@gradio/client": "^1.5.0",
+    "bullmq": "^5.12.5",
+    "dotenv": "^16.4.5",
+    "fastify-socket.io": "^5.1.0",
+    "http-proxy": "^1.18.1",
+    "ioredis": "^5.4.1",
+    "openai": "^4.55.7",
+    "pg": "^8.12.0",
+    "socket.io": "^4.7.5",
+    "winston": "^3.14.1"
   }
 }

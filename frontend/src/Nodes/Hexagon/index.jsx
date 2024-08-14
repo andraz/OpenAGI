@@ -19,6 +19,11 @@ const HexagonNode = ({ data }) => {
         {/* <Handle type="source" position="right" /> */}
       </div>
       <div className="inset-0 grid place-items-center">
+        <Label
+          style={{ transform: 'rotate(30deg)' }}
+          className="absolute -right-px top-4 font-mono text-[5px] text-white/75">
+          {data.time}
+        </Label>
         <Label>{data.label}</Label>
       </div>
     </>

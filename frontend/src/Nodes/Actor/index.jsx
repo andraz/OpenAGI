@@ -1,4 +1,6 @@
 import HexagonNode from '../Hexagon'
+import useSocketEvent from '../../hooks/useSocketEvent'
+import { useState } from 'react'
 
 /**
  * Actor component represent a persona with a picture, name and a backstory.
@@ -14,12 +16,19 @@ const Actor = props => {
   // Prepare first name for the label
   const firstName = name.split(' ')[0]
 
+  const [time, setTime] = useState('')
+
+  useSocketEvent('time', message => {
+    setTime(message)
+  })
+
   // Render the HexagonNode component with the prepared data
   return (
     <HexagonNode
       data={{
         src: image,
         label: firstName,
+        time,
       }}
     />
   )

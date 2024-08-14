@@ -1,15 +1,24 @@
 # openagi-server
 
-To install dependencies:
+Start full stack automatically by running
 
 ```bash
-bun install
+./start.sh
 ```
 
-To run:
+in the root dir of this project.
+
+## BullMQ
+
+Queues can be examined in http://localhost:7777/admin/queues after project is
+started.
+
+## Quick iteration
+
+For quick iteration while developing, you can run from root of the project:
 
 ```bash
-bun run index.js
+./reset.sh && ./start.sh
 ```
 
-This project was created using `bun init` in bun v1.1.22. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+This will destroy all stale data and gave you fresh start every time.
