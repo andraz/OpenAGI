@@ -19,7 +19,7 @@ const HexagonNode = ({ data }) => {
         {/* <Handle type="source" position="right" /> */}
       </div>
       <div className="inset-0 grid place-items-center">
-        <Label data={data} />
+        <Label>{data.label}</Label>
       </div>
     </>
   )
