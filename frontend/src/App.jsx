@@ -7,11 +7,11 @@ import {
 
 import '@xyflow/react/dist/style.css'
 
-import HexBackground from './HexBackground'
+import HexBackground from './components/background/hex'
 
-import nodeTypes from './Nodes/nodeTypes'
+import nodeTypes from './components/nodes/nodeTypes'
 import initialNodes from './initialNodes'
-import useNodesChange from './useNodesChange'
+import useHexSnap from './hooks/useHexSnap'
 import { gridSize } from './settings'
 
 const initialEdges = []
@@ -21,7 +21,7 @@ import { SocketProvider } from './context/SocketContext'
 const App = () => {
   const [nodes, setNodes] = useNodesState(initialNodes)
   const [edges, , onEdgesChange] = useEdgesState(initialEdges)
-  const onNodesChange = useNodesChange(setNodes)
+  const onNodesChange = useHexSnap(setNodes)
 
   return (
     <SocketProvider>
@@ -29,7 +29,8 @@ const App = () => {
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
-        nodeTypes={nodeTypes}>
+        nodeTypes={nodeTypes}
+        nodeOrigin={[0.5, 0.5]}>
         <HexBackground size={gridSize} />
       </ReactFlow>
     </SocketProvider>

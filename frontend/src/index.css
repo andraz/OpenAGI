@@ -8,7 +8,7 @@
 }
 
 body {
-  background: black;
+  background: rgb(225, 225, 225);
 }
 
 div.react-flow__panel.react-flow__attribution {

@@ -1,4 +1,4 @@
-import hexSnap from './hexSnap'
+import hexSnap from './hooks/hexSnap'
 
 const initialNodes = [
   {

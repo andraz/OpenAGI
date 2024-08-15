@@ -42,7 +42,8 @@ const HexBackground = ({ size = 60, color = 'hwb(222 5% 5%)' }) => {
       for (let row = -25; row < rows; row++) {
         for (let col = -25; col < cols; col++) {
           const x = col * hexWidth + (row % 2) * (hexWidth / 2) + startX
-          const y = row * hexVerticalSpacing + startY
+          const y = row * hexVerticalSpacing + hexHeight / 2 + startY
+
           drawHalfHex(ctx, x, y, size, color)
         }
       }
@@ -73,7 +74,7 @@ const HexBackground = ({ size = 60, color = 'hwb(222 5% 5%)' }) => {
         top: 0,
         left: 0,
         zIndex: -1,
-        opacity: 0.9,
+        opacity: 0.6,
         background: color.slice(0, -1) + '/ 11%)',
       }}
       width={width}

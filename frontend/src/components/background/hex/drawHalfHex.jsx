@@ -15,7 +15,7 @@ function drawHalfHex(ctx, x, y, size, color) {
   ctx.lineTo(x, y - size)
 
   ctx.strokeStyle = color
-  ctx.lineWidth = 0.1
+  ctx.lineWidth = 0.3
   ctx.stroke()
 }
 

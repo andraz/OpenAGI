@@ -1,7 +1,7 @@
 import HexagonNode from '../Hexagon'
-import useSocketEvent from '../../hooks/useSocketEvent'
+import useSocketEvent from '../../../hooks/useSocketEvent'
 import { useState } from 'react'
-import useSocketEmit from '../../hooks/useSocketEmit'
+import useSocketEmit from '../../../hooks/useSocketEmit'
 
 /**
  * Actor component represent a persona with a picture, name and a backstory.

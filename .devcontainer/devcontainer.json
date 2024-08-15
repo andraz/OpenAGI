@@ -6,7 +6,8 @@
     "ghcr.io/devcontainers-contrib/features/prettier:1": {},
     "ghcr.io/prulloac/devcontainer-features/bun:1": {},
     "ghcr.io/devcontainers-contrib/features/yt-dlp:2": {},
-    "ghcr.io/itsmechlark/features/redis-server:1": {}
+    "ghcr.io/itsmechlark/features/redis-server:1": {},
+    "ghcr.io/eitsupi/devcontainer-features/jq-likes:2": {}
   },
   "customizations": {
     "vscode": {

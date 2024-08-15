@@ -177,3 +177,5 @@ dist
 
 bun.lockb
 *.swp
+
+vite.config.js.timestamp-*
