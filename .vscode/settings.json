@@ -6,6 +6,6 @@
     "Openrouter",
     "setex",
     "unnest",
-    "OpenAGI",
+    "OpenAGI"
   ]
 }
