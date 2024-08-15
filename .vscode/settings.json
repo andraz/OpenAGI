@@ -5,6 +5,7 @@
     "itsmechlark",
     "Openrouter",
     "setex",
-    "unnest"
+    "unnest",
+    "OpenAGI",
   ]
 }
