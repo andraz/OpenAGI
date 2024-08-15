@@ -30,8 +30,10 @@ const App = () => {
         edges={edges}
         onNodesChange={onNodesChange}
         nodeTypes={nodeTypes}
-        nodeOrigin={[0.5, 0.5]}>
-        <HexBackground size={gridSize} />
+        nodeOrigin={[0.5, 0.5]}
+        maxZoom={5}
+        minZoom={0.05}>
+        <HexBackground size={gridSize} parentScale={7} />
       </ReactFlow>
     </SocketProvider>
   )

@@ -3,6 +3,7 @@ export default [
   'urlCheck',
   'llmToJsonGroq',
   'sineQuaNon',
+  'setNodeState',
 
   /* 'downloadSubtitles',
   'convertSubtitles',

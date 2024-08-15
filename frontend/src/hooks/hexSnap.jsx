@@ -23,11 +23,11 @@ import { gridSize } from '../settings'
 
   // Snapped x-coordinate based on the column and row
   // (rows alternate between full and half hexagons, hence the modulo)
-  const x = col * hexWidth + (row % 2) * (hexWidth / 2)
+  const x = Math.round(col * hexWidth + (row % 2) * (hexWidth / 2))
 
   // Snapped y-coordinate based on the row
   // (hexagons are taller than they are wide, hence the multiplication)
-  const y = row * hexVerticalSpacing + hexVerticalSpacing * (2 / 3)
+  const y = Math.round(row * hexVerticalSpacing + hexVerticalSpacing * (2 / 3))
 
   // Return the snapped position
   return { x, y }

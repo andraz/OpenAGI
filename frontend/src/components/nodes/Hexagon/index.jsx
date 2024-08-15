@@ -1,15 +1,21 @@
 import { Handle } from '@xyflow/react'
 import Label from './Label'
+import { useSocket } from '../../../context/SocketContext'
 
 const HexagonNode = ({ onClick, data }) => {
   // Hexagon width to height ratio
   const width = 104
   const height = (2 / Math.sqrt(3)) * width
 
+  const { socket } = useSocket()
+
   return (
     <>
       <div
-        onClick={onClick}
+        onClick={e => {
+          console.log('clicked')
+          socket.emit('clicked', data)
+        }}
         className="hexagon bg-transparent bg-contain bg-top bg-no-repeat"
         style={{
           width: `${width}px`,

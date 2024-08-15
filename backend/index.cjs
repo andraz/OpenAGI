@@ -25,6 +25,7 @@ const main = async () => {
   const jobs = {
     urlCheck: (await import('./workers/jobs/urlCheck.js')).default,
     sineQuaNon: (await import('./workers/jobs/sineQuaNon.js')).default,
+    setNodeState: (await import('./workers/jobs/setNodeState.js')).default,
   }
 
   // Create an array of BullMQAdapter instances for each worker in the workerList
@@ -50,6 +51,8 @@ const main = async () => {
     // Listen for 'addJob' event from client
     socket.on('addJob', async (props, callback) => {
       try {
+        console.log('addJob event received', props)
+
         // Extract job and data from props
         const { job, data = {} } = props
 

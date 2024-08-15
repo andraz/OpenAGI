@@ -16,6 +16,21 @@ const useHexSnap = setNodes => changes => {
     }
     return change
   })
+
+  // Find if any position change is with dragging false meaning dragging has ended
+  for (const change of changes) {
+    if (change.type === 'position' && !change.dragging) {
+      // Extract the id and position from the change object
+      const { id, position } = change
+
+      // Emit a 'addJob' event to the WebSocket connection with the job and data
+      window.ws.emit('addJob', {
+        job: 'setNodeState',
+        data: { id, position },
+      })
+    }
+  }
+
   setNodes(nds => applyNodeChanges(changes, nds))
 }
 

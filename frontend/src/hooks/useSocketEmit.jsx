@@ -12,7 +12,7 @@ import { useSocket } from '../context/SocketContext.jsx'
 const useSocketEmit = (event, props) => {
   const { socket } = useSocket()
 
-  const handleClick = useCallback(
+  const socketEmit = useCallback(
     (data = {}) => {
       if (socket) {
         const emitData = { ...data, ...props }
@@ -22,7 +22,7 @@ const useSocketEmit = (event, props) => {
     [socket, event, props]
   )
 
-  return handleClick
+  return socketEmit
 }
 
 export default useSocketEmit

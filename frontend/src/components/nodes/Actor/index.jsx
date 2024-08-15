@@ -30,7 +30,7 @@ const Actor = props => {
     <HexagonNode
       onClick={e => {
         console.log('clicked', props)
-        socketEmit()
+        socketEmit({ e, props })
       }}
       data={{
         src: image,

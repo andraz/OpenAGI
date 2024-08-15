@@ -1,5 +1,5 @@
 // Function to draw only half of the hexagon
-function drawHalfHex(ctx, x, y, size, color) {
+function drawHalfHex(ctx, x, y, size, color, lineWidth = 0.3) {
   ctx.beginPath()
 
   // Start line at bottom center
@@ -15,7 +15,7 @@ function drawHalfHex(ctx, x, y, size, color) {
   ctx.lineTo(x, y - size)
 
   ctx.strokeStyle = color
-  ctx.lineWidth = 0.3
+  ctx.lineWidth = lineWidth
   ctx.stroke()
 }
 
