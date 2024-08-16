@@ -23,8 +23,6 @@ export const createWorker = async queueName => {
   // Get the processor file for the given queue and processor file
   const processor = await getProcessorFile(queueName)
 
-  console.log(`Creating worker for ${queueName}`)
-
   // Create a new worker instance with the given queue name, processor, and configuration settings
   const worker = new Worker(queueName, processor, config.worker)
 

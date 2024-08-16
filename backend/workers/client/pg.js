@@ -1,26 +1,40 @@
-import pg from 'pg'
-const { Client } = pg
-
 import dotenv from 'dotenv'
-dotenv.config()
+import Redis from 'ioredis'
 
-// Database connection configuration
-const dbConfig = {
-  user: process.env.PG_USER,
-  password: process.env.PG_PW,
-  host: process.env.PG_HOST,
-  port: process.env.PG_PORT,
-  database: process.env.PG_DB,
+// Function to get a new PostgreSQL client
+import pkg from 'pg'
+const { Pool } = pkg
+
+let pool
+
+export const getClient = async () => {
+  if (!pool) {
+    // Load environment variables
+    const { parsed } = dotenv.config({ path: '../.env' })
+
+    pool = new Pool({
+      user: parsed.POSTGRES_USER,
+      password: parsed.POSTGRES_PASSWORD,
+      host: parsed.POSTGRES_HOST,
+      port: parsed.POSTGRES_PORT,
+      database: parsed.POSTGRES_DATABASE,
+      connectionTimeoutMillis: 5000, // 5 seconds timeout
+    })
+  }
+
+  try {
+    const client = await pool.connect()
+    const { rows } = await client.query('SELECT NOW()')
+    console.log('Connected to database at:', rows[0].now)
+    return client
+  } catch (err) {
+    console.error('Error connecting to the database:', err)
+    throw err
+  }
 }
 
-import Redis from 'ioredis'
+// Create a new Redis client
 const redisClient = new Redis()
-
-// Create a new client instance
-const getClient = () => new Client(dbConfig)
-
-export default getClient
-
 /**
  * Retrieves keys of a specified type from the database.
  *

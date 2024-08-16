@@ -1,11 +1,15 @@
 {
   "cSpell.words": [
     "bullmq",
+    "Dohaeris",
     "Fastify",
+    "gradio",
     "itsmechlark",
+    "OpenAGI",
     "Openrouter",
     "setex",
     "unnest",
-    "OpenAGI"
-  ]
+    "Valar"
+  ],
+  "cSpell.enableFiletypes": ["jsx-tags", "mermaid"]
 }

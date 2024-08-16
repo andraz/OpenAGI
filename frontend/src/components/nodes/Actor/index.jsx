@@ -1,21 +1,41 @@
 import HexagonNode from '../Hexagon'
 import useSocketEvent from '../../../hooks/useSocketEvent'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useSocketEmit from '../../../hooks/useSocketEmit'
 
 /**
- * Actor component represent a persona with a picture, name and a backstory.
+ * Actor component represent a persona
  * @param {Object} props - The properties of the Actor component.
  * @param {string} props.image - The URL of the actor's image.
  * @param {string} props.name - The name of the actor.
- * @param {string} props.backstory - The backstory of the actor.
  */
 const Actor = props => {
-  // Destructure the props object to get the image, name, and backstory
-  const { image, name, backstory } = props.data
+  const [actorData, setActorData] = useState(props.data)
 
-  // Prepare first name for the label
-  const firstName = name.split(' ')[0]
+  const actorEventName = `actorUpdate:${props.id}`
+
+  useSocketEvent(actorEventName, message => {
+    console.log(actorEventName, message)
+
+    // Update the actor data if data changed
+    if (JSON.stringify(message) !== JSON.stringify(actorData)) {
+      setActorData(message)
+    }
+  })
+
+  // Destructure the props object
+  const { image, name } = actorData
+
+  // Prepare name for the label
+  const labelName = name || 'Valar Dohaeris' // The anon has no name
+
+  // Prepare image
+  const src =
+    image ||
+    'https://qpowxrmcvprnjmmsxdwb.supabase.co/storage/v1/object/public/avatar/valar.jpeg'
+
+  // Use full first name and 1. capital from second name
+  const label = labelName.split(' ')[0] + ' ' + labelName.split(' ')[1][0] + '.'
 
   const [time, setTime] = useState('')
 
@@ -33,9 +53,10 @@ const Actor = props => {
         socketEmit({ e, props })
       }}
       data={{
-        src: image,
-        label: firstName,
+        src,
+        label,
         time,
+        id: props.id,
       }}
     />
   )

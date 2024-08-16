@@ -1,32 +1,79 @@
-import getPgClient from '../client/pg.js'
+import { getClient } from '../client/pg.js'
 
 /**
- * Sets the node in PostgreSQL world state with the given key and value.
+ * Updates the node in PostgreSQL world state with the data provided.
  * @param {Object} job - The job object containing the data.
- * @param {Object} job.data - The job payload.
- * @param {string} job.data.nodeId - The ID of the node to set.
- * @param {Object} job.data.data - The data to set for the node.
+ * @param {Object} job.data - The data payload.
+ * @param {string} job.data.id - The UUID of the node to set.
  */
 const main = async job => {
+  // console.log('workers/processors/setNodeState.js', job)
+
+  let pgClient
   try {
-    console.log('PROCESSING setNodeState', job)
+    // Split the data into the id and the rest of the data
+    const { id, ...data } = job.data
 
-    // Get the PostgreSQL client
-    const pgClient = await getPgClient()
+    // Sanity check if id is UUID format
+    if (
+      !id?.match(
+        /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
+      )
+    ) {
+      throw new Error('job.data.id is not in UUID format')
+    }
 
-    // Execute the SQL query to set the node in the world state
-    await pgClient.query
-      `INSERT INTO world_state (id, data)
-        VALUES ($1, $2)
-        ON CONFLICT (id) DO UPDATE
-        SET data = data || $2`, // Merge the data if the node already exists
-      [job.data.nodeId, job.data.data]
-    )
+    // Convert the data object to a JSON string
+    const dataJson = JSON.stringify(data)
+
+    // Create an array of values to be inserted into the SQL query
+    const values = [id, dataJson]
+    console.log('Query data:', values)
+
+    // Prepare SQL query and values, data will be merged with existing data if it exists
+    const sql = `
+      INSERT INTO public.world_state (id, data)
+      VALUES ($1::uuid, $2::jsonb)
+      ON CONFLICT (id) 
+      DO UPDATE SET data = world_state.data || EXCLUDED.data
+      RETURNING id`
+
+    // Time the client acquisition
+    console.time('get pgClient for job ' + job.id)
+    pgClient = await getClient()
+    console.timeEnd('get pgClient for job ' + job.id)
+
+    // Time the query execution
+    console.time('Query execution')
+    const queryResult = await Promise.race([
+      pgClient.query(sql, values),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Query timeout')), 10000)
+      ),
+    ])
+    console.timeEnd('Query execution')
+
+    // We should get back the id of the inserted/updated row
+    console.log('Query result:', queryResult.rows[0].id)
+
+    // Ensure the job is considered as done by returning true
+    return true
   } catch (error) {
-    // Log any errors that occur during the execution of the command
-    console.error('Error executing command:', error)
-
-    // Rethrow the error to be handled by the caller
+    console.error('Error in main function:', error)
+    if (error.code) {
+      console.error('Error code:', error.code)
+    }
+    if (error.detail) {
+      console.error('Error detail:', error.detail)
+    }
     throw error
+  } finally {
+    if (pgClient) {
+      try {
+        await pgClient.end()
+      } catch (closeError) {}
+    }
   }
 }
+
+export default main

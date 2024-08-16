@@ -1,22 +1,23 @@
 import logger from '../utils/logger.js'
 
-export const onActiveHandler = job => {
-  logger.info(`[Worker] active: ${job.id} in queue ${job.queue.name}`, job.data)
-}
-
-export const onProgressHandler = (job, progress) => {
-  logger.info(`[Worker] progress: ${job.id} in queue ${job.queue.name}`, {
-    progress,
+export const onActiveHandler = job =>
+  logger.info('[Worker active]', {
+    id: job.id,
+    name: job.name,
+    data: job.data,
   })
-}
+
+export const onProgressHandler = (job, progress) =>
+  logger.info('[Worker progress]', { jobId: job.id, progress })
 
 export const onCompletedHandler = job => {
-  logger.info(
-    `[Worker] completed: ${job.id} in queue ${job.queue.name}`,
-    job.returnvalue
-  )
+  logger.info('[Worker completed]', { jobId: job.id })
 }
 
 export const onFailedHandler = (job, err) => {
-  logger.error(`[Worker] failed: ${job.id} in queue ${job.queue.name}`, err)
+  logger.error('[Worker failed]', {
+    jobId: job.id,
+    jobName: job.name,
+    err,
+  })
 }

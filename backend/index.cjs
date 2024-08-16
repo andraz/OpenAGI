@@ -48,6 +48,23 @@ const main = async () => {
     //   io.emit('time', time)
     // }, 1000)
 
+    socket.on('getWorldState', async callback => {
+      try {
+        console.log('getWorldState event received')
+        const getWorldState = (await import('./getWorldState.cjs')).default
+
+        // Get the world state from the database
+        const worldState = await getWorldState()
+
+        // If callback is provided, return world state to client
+        if (callback && typeof callback === 'function') {
+          callback(worldState)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    })
+
     // Listen for 'addJob' event from client
     socket.on('addJob', async (props, callback) => {
       try {

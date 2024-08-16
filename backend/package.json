@@ -1,7 +1,7 @@
 {
   "name": "openagi-server",
   "module": "index.js",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest"

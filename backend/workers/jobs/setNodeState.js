@@ -1,12 +1,11 @@
 import addToQueue from '../queue/addToQueue.js'
 
-const main = async props => {
-  const nodeId = props.id
-  const data = { position: props.position }
+const main = async data => {
+  // console.log('workers/jobs/setNodeState.js', data)
 
   const queueName = 'setNodeState'
 
-  const payload = { nodeId, data }
+  const payload = data
 
   return addToQueue({ queueName, payload })
 }
