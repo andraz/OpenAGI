@@ -10,13 +10,28 @@ import { gridSize } from './settings'
 
 const initialEdges = []
 
-import { SocketProvider } from './context/SocketContext'
 import { useEffect } from 'react'
+import useSocketEvent from './hooks/useSocketEvent'
 
 const App = () => {
   const [nodes, setNodes] = useNodesState([])
   const [edges, , onEdgesChange] = useEdgesState(initialEdges)
   const onNodesChange = useHexSnap(setNodes)
+
+  // Listen for the 'updatedNode' event
+  useSocketEvent('updatedNode', updatedNode => {
+    // Prepare replacement node
+    const replacementNode = {
+      ...updatedNode.data,
+      type: updatedNode?.data?.type || 'actor', // Ensure type is defined
+      id: updatedNode.id,
+    }
+
+    // Update the node in the state
+    setNodes(nodes =>
+      nodes.map(node => (node.id === updatedNode.id ? replacementNode : node))
+    )
+  })
 
   // Get the world state on initial load
   useEffect(() => {
@@ -39,18 +54,16 @@ const App = () => {
   }, [])
 
   return (
-    <SocketProvider>
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        nodeTypes={nodeTypes}
-        nodeOrigin={[0.5, 0.5]}
-        maxZoom={5}
-        minZoom={0.05}>
-        <HexBackground size={gridSize} parentScale={7} />
-      </ReactFlow>
-    </SocketProvider>
+    <ReactFlow
+      nodes={nodes}
+      edges={edges}
+      onNodesChange={onNodesChange}
+      nodeTypes={nodeTypes}
+      nodeOrigin={[0.5, 0.5]}
+      maxZoom={5}
+      minZoom={0.05}>
+      <HexBackground size={gridSize} parentScale={7} />
+    </ReactFlow>
   )
 }
 

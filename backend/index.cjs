@@ -4,6 +4,7 @@ const { BullMQAdapter } = require('@bull-board/api/bullMQAdapter')
 const { ExpressAdapter } = require('@bull-board/express')
 const http = require('http')
 const { Server } = require('socket.io')
+const { QueueEvents } = require('bullmq')
 
 const main = async () => {
   const app = express()
@@ -29,24 +30,31 @@ const main = async () => {
   }
 
   // Create an array of BullMQAdapter instances for each worker in the workerList
-  const queues = workerList.map(worker => new BullMQAdapter(getQueue(worker)))
-
+  const bullQueues = workerList.map(
+    worker => new BullMQAdapter(getQueue(worker))
+  )
   const serverAdapter = new ExpressAdapter()
-  createBullBoard({ queues, serverAdapter })
+  createBullBoard({ queues: bullQueues, serverAdapter })
   serverAdapter.setBasePath('/')
   app.use('/', serverAdapter.getRouter())
 
-  // Socket.IO connection handling
-  io.on('connection', socket => {
-    console.log('a user connected')
+  // Get a handle on setNodeState queue events
+  const setNodeStateQueueEvents = new QueueEvents('setNodeState')
 
-    // // Emit time to client every second
-    // setInterval(() => {
-    //   // Get hh:mm:ss format in 24 hour time without AM PM indicator
-    //   const time = new Date().toLocaleTimeString('en-US', { hour12: false })
-    //   // Emit the time to all connected clients
-    //   io.emit('time', time)
-    // }, 1000)
+  const getNodeById = (await import('./getNodeById.cjs')).default
+
+  // Listen for 'completed' event on setNodeState queue
+  setNodeStateQueueEvents.on('completed', async ({ returnvalue }) => {
+    // Fetch the updated node data from PostgreSQL
+    const node = await getNodeById(returnvalue)
+
+    // Emit the 'updatedNode' event to all connected clients
+    io.emit('updatedNode', node)
+  })
+
+  // Socket.IO connection handling
+  io.on('connection', async socket => {
+    console.log('a user connected')
 
     socket.on('getWorldState', async callback => {
       try {

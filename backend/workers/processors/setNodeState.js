@@ -54,10 +54,10 @@ const main = async job => {
     console.timeEnd('Query execution')
 
     // We should get back the id of the inserted/updated row
-    console.log('Query result:', queryResult.rows[0].id)
+    const re = queryResult?.rows?.[0]?.id
 
-    // Ensure the job is considered as done by returning true
-    return true
+    // Return the id of the inserted/updated row
+    return re
   } catch (error) {
     console.error('Error in main function:', error)
     if (error.code) {
