@@ -14,6 +14,16 @@ Understand implied relationships from visual borders on different zoom levels.
 
 Border can imply storage ➡️ processing ➡️ output, or other relationships that make sense in the context.
 
+What happens inside of the border is considered to be internals of the system, and can be considered hidden on a higher level view.
+
+## Visualize movement of data
+
+Data sharing between individual systems can be modeled like synapses.
+
+![synapse](frontend/synapse.gif)
+
+When in a shared border region, entities can pass through the border of the higher level system, passing data between them.
+
 ## Getting started
 
 ### Prerequisites
