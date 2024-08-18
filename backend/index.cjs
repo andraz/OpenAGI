@@ -46,10 +46,10 @@ const main = async () => {
   // Listen for 'completed' event on setNodeState queue
   setNodeStateQueueEvents.on('completed', async ({ returnvalue }) => {
     // Fetch the updated node data from PostgreSQL
-    const node = await getNodeById(returnvalue)
+    const data = await getNodeById(returnvalue)
 
     // Emit the 'updatedNode' event to all connected clients
-    io.emit('updatedNode', node)
+    io.emit('updatedNode', { id: returnvalue, data })
   })
 
   // Socket.IO connection handling
@@ -58,7 +58,6 @@ const main = async () => {
 
     socket.on('getWorldState', async callback => {
       try {
-        console.log('getWorldState event received')
         const getWorldState = (await import('./getWorldState.cjs')).default
 
         // Get the world state from the database

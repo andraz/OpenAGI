@@ -18,7 +18,6 @@ export const getClient = async () => {
       host: parsed.POSTGRES_HOST,
       port: parsed.POSTGRES_PORT,
       database: parsed.POSTGRES_DATABASE,
-      connectionTimeoutMillis: 5000, // 5 seconds timeout
     })
   }
 

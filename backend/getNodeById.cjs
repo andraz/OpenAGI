@@ -14,13 +14,13 @@ const getNodeById = async id => {
     client = await getClient()
 
     // Define the SQL query to retrieve the node with the given ID.
-    const query = 'SELECT * FROM world_state WHERE id = $1'
+    const query = 'SELECT data FROM world_state WHERE id = $1'
 
     // Execute the query with the given ID as a parameter.
     const result = await client.query(query, [id])
 
     // Return the first row of the result set, which should be the node with the given ID.
-    return result.rows[0]
+    return result.rows[0].data
   } catch (error) {
     // If an error occurs, log it to the console and rethrow it.
     console.error(error)

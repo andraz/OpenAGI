@@ -7,9 +7,6 @@ import { getClient } from '../client/pg.js'
  * @param {string} job.data.id - The UUID of the node to set.
  */
 const main = async job => {
-  // console.log('workers/processors/setNodeState.js', job)
-
-  let pgClient
   try {
     // Split the data into the id and the rest of the data
     const { id, ...data } = job.data
@@ -38,10 +35,8 @@ const main = async job => {
       DO UPDATE SET data = world_state.data || EXCLUDED.data
       RETURNING id`
 
-    // Time the client acquisition
-    console.time('get pgClient for job ' + job.id)
-    pgClient = await getClient()
-    console.timeEnd('get pgClient for job ' + job.id)
+    // Get the client
+    const pgClient = await getClient()
 
     // Time the query execution
     console.time('Query execution')
@@ -52,6 +47,9 @@ const main = async job => {
       ),
     ])
     console.timeEnd('Query execution')
+
+    // Close the client
+    await pgClient.end()
 
     // We should get back the id of the inserted/updated row
     const re = queryResult?.rows?.[0]?.id
@@ -67,12 +65,6 @@ const main = async job => {
       console.error('Error detail:', error.detail)
     }
     throw error
-  } finally {
-    if (pgClient) {
-      try {
-        await pgClient.end()
-      } catch (closeError) {}
-    }
   }
 }
 
