@@ -1,7 +1,7 @@
 {
   "name": "openagi-server",
   "module": "index.js",
-  "version": "2.3.5",
+  "version": "2.4.0",
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest"
@@ -12,9 +12,12 @@
   "dependencies": {
     "@bull-board/api": "^5.21.4",
     "@bull-board/express": "^5.21.4",
+    "@google/generative-ai": "^0.17.1",
     "@gradio/client": "^1.5.0",
     "bullmq": "^5.12.5",
     "dotenv": "^16.4.5",
+    "duckdb-async": "^1.0.0",
+    "express": "^4.19.2",
     "fastify-socket.io": "^5.1.0",
     "groq-sdk": "^0.5.0",
     "http-proxy": "^1.18.1",

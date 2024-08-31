@@ -1,16 +1,26 @@
 {
   "cSpell.words": [
+    "andrazkos",
     "bullmq",
     "Dohaeris",
+    "duckdb",
     "Fastify",
+    "Gcode",
     "gradio",
     "hexgrid",
     "itsmechlark",
+    "konva",
+    "latlng",
+    "mapbox",
+    "maplibre",
+    "motherduck",
     "OpenAGI",
     "Openrouter",
     "setex",
     "Supabase",
+    "timestamptz",
     "unnest",
+    "unproject",
     "Valar"
   ],
   "cSpell.enableFiletypes": ["jsx-tags", "mermaid"]

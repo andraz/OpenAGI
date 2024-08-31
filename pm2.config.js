@@ -10,9 +10,15 @@ module.exports = {
     },
 
     {
-      name: "main-server", // Main server hosting /bull dashboard and / UI dev build
+      name: "socket", // Main socketio server also hosting /bull dashboard
       cwd: "./backend", // Set the working directory to frontend
       script: "index.cjs",
+    },
+
+    {
+      name: "duckdb", // DuckDB API server
+      cwd: "./backend/duckdb", // Set the working directory to frontend
+      script: "index.js", // Path to DuckDB API entry point
     },
 
     {
